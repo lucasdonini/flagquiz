@@ -1,4 +1,4 @@
-package com.kluska.flagquiz
+package com.kluska.flagquiz.screen
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.kluska.flagquiz.FlagQuizGame
+import com.kluska.flagquiz.infra.Logger
 
 class QuizScreen(private val game: FlagQuizGame) : Screen {
 

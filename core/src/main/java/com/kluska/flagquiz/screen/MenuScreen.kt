@@ -1,8 +1,10 @@
-package com.kluska.flagquiz
+package com.kluska.flagquiz.screen
 
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.utils.ScreenUtils
+import com.kluska.flagquiz.FlagQuizGame
+import com.kluska.flagquiz.infra.Logger
 
 class MenuScreen(private val game: FlagQuizGame) : Screen {
 

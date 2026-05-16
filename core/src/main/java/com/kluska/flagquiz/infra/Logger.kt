@@ -1,4 +1,4 @@
-package com.kluska.flagquiz
+package com.kluska.flagquiz.infra
 
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx

@@ -15,6 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
+import com.kluska.flagquiz.infra.FlagQuizFonts
+import com.kluska.flagquiz.infra.Logger
+import com.kluska.flagquiz.screen.MenuScreen
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
 class FlagQuizGame : Game() {
