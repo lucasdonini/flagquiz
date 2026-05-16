@@ -1,12 +1,24 @@
 package com.kluska.flagquiz
 
 import com.badlogic.gdx.Game
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Texture
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
 class FlagQuizGame : Game() {
 
+    val assets = AssetManager()
+
     override fun create() {
         Logger.log("FlagQuizGame started")
+
+        Logger.log("Loading assets...")
+//        assets.load("flags/br.png", Texture::class.java) Loads a specific flag
+        val flagFiles = Gdx.files.internal("flags").list() // Loads all flags from assets/flags
+        flagFiles.forEach { assets.load(it.path(), Texture::class.java) }
+        assets.finishLoading()
+        Logger.log("Assets loaded")
 
         setScreen(MenuScreen(this))
     }
@@ -16,6 +28,9 @@ class FlagQuizGame : Game() {
     }
 
     override fun dispose() {
+        Logger.log("Disposing assets...")
+        assets.dispose()
+
         Logger.log("Disposing screen...")
         screen?.dispose()
     }
