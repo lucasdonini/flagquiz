@@ -9,7 +9,7 @@ class MenuScreen(private val game: FlagQuizGame) : Screen {
     private var timer: Float = 0f
 
     override fun show() {
-        Logger.log("MenuScreen activated")
+        Logger.info("MenuScreen activated")
     }
 
     override fun render(delta: Float) {
