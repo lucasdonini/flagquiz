@@ -23,7 +23,10 @@ class QuizScreen(private val game: FlagQuizGame) : Screen {
         Logger.log("Rendering flag...")
         val x = (Gdx.graphics.width - flag.width) / 2f
         val y = (Gdx.graphics.height - flag.height) / 2f
-        game.batch.render { draw(flag, x, y) }
+        game.batch.render {
+            draw(flag, x, y)
+            game.fonts.body.draw(this, "Que país é esse?", 50f, 100f)
+        }
     }
 
     override fun resize(width: Int, height: Int) {}
