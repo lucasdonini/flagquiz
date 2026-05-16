@@ -7,11 +7,16 @@ class FlagQuizGame : Game() {
 
     override fun create() {
         Logger.log("FlagQuizGame started")
+
+        setScreen(MenuScreen(this))
     }
 
     override fun render() {
         super.render()
     }
 
-    override fun dispose() {}
+    override fun dispose() {
+        Logger.log("Disposing screen...")
+        screen?.dispose()
+    }
 }
