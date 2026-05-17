@@ -1,4 +1,4 @@
-package com.kluska.flagquiz.infra
+package com.kluska.flagquiz.ui.fonts
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 

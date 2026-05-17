@@ -15,12 +15,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
-import com.kluska.flagquiz.infra.FlagQuizFonts
-import com.kluska.flagquiz.infra.Logger
-import com.kluska.flagquiz.screen.MenuScreen
+import com.kluska.flagquiz.di.appModule
+import com.kluska.flagquiz.repository.Logger
+import com.kluska.flagquiz.ui.fonts.FlagQuizFonts
+import com.kluska.flagquiz.ui.screens.MenuScreen
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.context.startKoin
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
-class FlagQuizGame : Game() {
+class FlagQuizGame : Game(), KoinComponent {
+
+    private val logger: Logger by lazy { get() }
 
     val assets = AssetManager()
     lateinit var batch: SpriteBatch
@@ -28,33 +34,46 @@ class FlagQuizGame : Game() {
     lateinit var skin: Skin
 
     override fun create() {
-        Logger.info("FlagQuizGame started")
+        setupKoin()
 
-        Logger.info("Loading assets...")
-//        assets.load("flags/br.png", Texture::class.java) Loads a specific flag
-        val flagFiles = Gdx.files.internal("flags").list() // Loads all flags from assets/flags
-        flagFiles.forEach { assets.load(it.path(), Texture::class.java) }
-        assets.finishLoading()
-        Logger.info("Assets loaded")
-
-        Logger.info("Creating SpriteBatch singleton...")
-        batch = SpriteBatch()
-
-        Logger.info("Creating BitmapFont singleton for Roboto...")
-        fonts = FlagQuizFonts(
-            body = createFont("fonts/roboto.ttf", 36),
-            title = createFont("fonts/roboto.ttf", 64)
-        )
-
-        Logger.info("Creating default skin...")
-        skin = createSkin()
+        logger.info("Starting FlagQuizGame...")
+        loadAssets()
+        createBatch()
+        loadFonts()
+        loadSkins()
+        logger.info("FlagQuizGame setup complete")
 
         setScreen(MenuScreen(this))
     }
 
-    override fun render() {
-        super.render()
+    private fun loadAssets() {
+        logger.info("Loading assets...")
+//        assets.load("flags/br.png", Texture::class.java) Loads a specific flag
+        val flagFiles = Gdx.files.internal("flags").list() // Loads all flags from assets/flags
+        flagFiles.forEach { assets.load(it.path(), Texture::class.java) }
+        assets.finishLoading()
+        logger.info("Assets loaded")
     }
+
+    private fun createBatch() {
+        logger.info("Creating SpriteBatch singleton...")
+        batch = SpriteBatch()
+    }
+
+    private fun loadFonts() {
+        logger.info("Creating BitmapFont singleton for Roboto...")
+        fonts = FlagQuizFonts(
+            body = createFont("fonts/roboto.ttf", 36),
+            title = createFont("fonts/roboto.ttf", 64)
+        )
+    }
+
+    private fun loadSkins() {
+        logger.info("Creating default skin...")
+        skin = createSkin()
+    }
+
+    private fun setupKoin() = startKoin { modules(appModule) }
 
     private fun createFont(path: String, size: Int): BitmapFont {
         val generator = FreeTypeFontGenerator(Gdx.files.internal(path))
@@ -107,17 +126,19 @@ class FlagQuizGame : Game() {
         return skin
     }
 
+    override fun render() = super.render()
+
     override fun dispose() {
-        Logger.info("Disposing assets...")
+        logger.info("Disposing assets...")
         assets.dispose()
 
-        Logger.info("Disposing batch...")
+        logger.info("Disposing batch...")
         batch.dispose()
 
-        Logger.info("Disposing fonts...")
+        logger.info("Disposing fonts...")
         fonts.dispose()
 
-        Logger.info("Disposing screen...")
+        logger.info("Disposing screen...")
         screen?.dispose()
     }
 

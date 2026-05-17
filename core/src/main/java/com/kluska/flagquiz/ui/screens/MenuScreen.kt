@@ -1,17 +1,20 @@
-package com.kluska.flagquiz.screen
+package com.kluska.flagquiz.ui.screens
 
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.utils.ScreenUtils
 import com.kluska.flagquiz.FlagQuizGame
-import com.kluska.flagquiz.infra.Logger
+import com.kluska.flagquiz.repository.Logger
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class MenuScreen(private val game: FlagQuizGame) : Screen {
+class MenuScreen(private val game: FlagQuizGame) : Screen, KoinComponent {
 
+    private val logger: Logger by inject()
     private var timer: Float = 0f
 
     override fun show() {
-        Logger.info("MenuScreen activated")
+        logger.info("MenuScreen activated")
     }
 
     override fun render(delta: Float) {
